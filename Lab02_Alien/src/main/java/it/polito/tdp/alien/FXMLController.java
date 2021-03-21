@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 
 public class FXMLController {
 	
-	AlienDictionary dizionario;
+	AlienDictionary dizionario = new AlienDictionary();
 
     @FXML
     private ResourceBundle resources;
@@ -34,13 +34,14 @@ public class FXMLController {
 
     @FXML
     void doReset(ActionEvent event) {
-
+ 
+    	this.txtAlienText.clear();
+    	this.txtResult.clear();
     }
 
     @FXML
     void doTranslate(ActionEvent event) {
     	
-    	dizionario  = new AlienDictionary();
     	
     	if(this.txtAlienText.getText().contains(" ")){
     		String[] testo = this.txtAlienText.getText().split(" ");
@@ -57,14 +58,15 @@ public class FXMLController {
     		return;
     	}
     
-    	String testo = this.txtResult.getText();
+    	String testo = this.txtAlienText.getText();
     	
     	try {
-    		this.txtResult.setText("Traduzione :"+ dizionario.transalteWord(testo));
+    		this.txtResult.setText("Traduzione : "+ dizionario.transalteWord(testo));
     	}catch(NullPointerException e){
     		this.txtResult.setText("Traduzione non trovata :( ");
-    		this.txtAlienText.clear();
     	}
+    	
+    	this.txtAlienText.clear();
     	
     	return;
     }
